@@ -176,6 +176,44 @@ This module provides a **FastAPI** application to expose the analyzed data to ex
      -H 'accept: application/json'
    ```
 
+## Task 5: Pipeline Orchestration & Automation
+
+This module uses **Dagster** to orchestrate the entire data pipeline, ensuring that every step from scraping to transformation runs in the correct order and on schedule.
+
+### Pipeline Workflow
+The `medical_pipeline_job` defined in `pipeline.py` executes the following steps:
+1.  **Scrape Data**: Runs the Telethon scraper (`src/scraper.py`) to fetch new messages.
+2.  **Parallel Processing**:
+    *   **Load Data**: Runs `src/loader.py` to ingest raw JSONs into PostgreSQL.
+    *   **Image Analysis**: Runs `src/yolo_detect.py` to detect objects in images.
+3.  **Transform Data**: Triggers **dbt** to clean and transform the data, but only after loading and detection are complete.
+
+### Features
+*   **Dependency Management**: Ensures dbt runs only when data is ready.
+*   **Parallel Execution**: Speeds up the process by running independent tasks (Loader & YOLO) concurrently.
+*   **Scheduling**: Includes a predefined schedule to run daily at midnight (`0 0 * * *`).
+*   **Monitoring**: Dagster UI provides visual insights into pipeline runs, logs, and errors.
+
+### Prerequisites
+*   **Dagster**: `dagster` and `dagster-webserver` installed via `requirements.txt`.
+
+### Usage
+
+1.  **Launch Dagster UI**:
+    Start the local development server:
+    ```bash
+    dagster dev -f pipeline.py
+    ```
+
+2.  **Trigger the Job**:
+    *   Open [http://localhost:3000](http://localhost:3000) in your browser.
+    *   Navigate to **Jobs** > **medical_pipeline_job**.
+    *   Click **Launch Pad** and then **Launch Run**.
+
+3.  **View Logs**:
+    Track the progress of each step (Scrape -> Load/YOLO -> dbt) in the **Run Details** view.
+
+
 
 
 
