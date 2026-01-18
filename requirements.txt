@@ -5,3 +5,7 @@ pandas
 sqlalchemy
 dbt-postgres
 ultralytics
+psycopg2-binary 
+pydantic
+fastapi 
+uvicorn
