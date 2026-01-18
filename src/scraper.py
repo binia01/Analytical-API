@@ -14,15 +14,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Configuration
-API_ID = os.getenv('TG_API_ID')
-API_HASH = os.getenv('TG_API_HASH')
-PHONE = os.getenv('TG_PHONE')
+API_ID = os.getenv('APP_API_ID')
+API_HASH = os.getenv('APP_API_HASH')
+PHONE = os.getenv('APP_PHONE')
 
 # List of channels to scrape
 CHANNELS: List[str] = [
     '@lobelia4cosmetics', 
-    '@tikvahpharma', 
-    '@DoctorsET'
+    '@tikvahpharma'
 ]
 
 # Directory Setup
