@@ -1,0 +1,42 @@
+# --- Security (CRITICAL) ---
+.env
+.env.*
+*.session
+*.session-journal
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.venv/
+env/
+
+# --- Data (The Data Lake) ---
+data/raw/
+data/processed/
+data/postgres/
+*.json
+*.csv
+*.jpg
+*.png
+
+# --- Logs ---
+logs/
+*.log
+
+# --- IDE Settings ---
+.idea/
+.vscode/
+# Exception: You might want to share settings.json, but ignore local user settings
+# .vscode/settings.json 
+
+# --- OS Generated ---
+.DS_Store
+Thumbs.db
+
+# --- dbt ---
+medical_warehouse/dbt_packages/
+medical_warehouse/target/
+medical_warehouse/logs/
