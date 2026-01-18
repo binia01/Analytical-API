@@ -1,6 +1,5 @@
 # --- Security (CRITICAL) ---
 .env
-.env.*
 *.session
 *.session-journal
 
