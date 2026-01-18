@@ -103,6 +103,8 @@ def run_detection():
         engine = create_engine(DB_URL)
         with engine.connect() as conn:
             conn.execute(text("CREATE SCHEMA IF NOT EXISTS raw;"))
+            print("Dropping old table and dependent views...")
+            conn.execute(text("DROP TABLE IF EXISTS raw.yolo_detections CASCADE;"))
             conn.commit()
             
         df.to_sql('yolo_detections', engine, schema='raw', if_exists='replace', index=False)
