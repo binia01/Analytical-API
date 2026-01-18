@@ -100,4 +100,44 @@ The transformation pipeline produces the following structure:
 - **Staging Layer**: `public.stg_telegram_messages` (Cleaned views)
 - **Serving Layer**: `public.fct_messages`, `public.dim_channels`
 
+## Task 3: Object Detection using YOLO
+
+This module applies Computer Vision techniques to analyze images collected from Telegram channels. It uses the YOLOv8 (You Only Look Once) model to detect objects and categorize images based on their content.
+
+### Features
+- **Object Detection**: Uses `ultralytics` YOLOv8n model to identify objects (persons, bottles, cups, etc.) in images.
+- **Rule-Based Classification**: Categorizes images into business-relevant types based on detected objects:
+  - **Promotional**: Contains both a person and a product container (bottle, cup, etc.).
+  - **Product Display**: Contains only product containers.
+  - **Lifestyle**: Contains only persons.
+  - **Other**: No relevant objects detected.
+- **Data Integration**: Detection results (bounding box classes, confidence scores) are stored in the database.
+
+### Prerequisites
+1. **YOLO Model**: Ensure `yolov8n.pt` is present in the project root (automatically downloaded by `ultralytics` if missing).
+2. **Dependencies**: `ultralytics` package (included in `requirements.txt`).
+
+### Usage
+
+1. **Run Detection Script**:
+   Process all images in `data/raw/images/` and save results to the database:
+   ```bash
+   python src/yolo_detect.py
+   ```
+
+2. **Run dbt Transformations**:
+   After loading detection data, update the data warehouse models:
+   ```bash
+   cd medical_warehouse
+   dbt run --select stg_yolo_detections fct_image_detections
+   ```
+
+### Data Model Extension
+This task adds the following tables to the warehouse:
+- **Raw**: `raw.yolo_detections` (Raw inference output)
+- **Staging**: `stg_yolo_detections` (Cleaned detection data)
+- **Serving**: `fct_image_detections` (Fact table for image analytics)
+
+
+
 

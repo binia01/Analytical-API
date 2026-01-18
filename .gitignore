@@ -20,6 +20,7 @@ data/postgres/
 *.csv
 *.jpg
 *.png
+*.pt
 
 # --- Logs ---
 logs/
