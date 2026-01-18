@@ -24,6 +24,7 @@ This module is responsible for extracting medical-related data from specified Te
    ```
 
 2. **Environment Variables**:
+
    Create a `.env` file in the root directory with the following content:
    ```env
    APP_API_ID=your_api_id
@@ -66,6 +67,7 @@ This module handles the loading of raw scraped data into a centralized database 
 
 ### Configuration
 Add the following database credentials to your `.env` file:
+
 
 ```env
 POSTGRES_USER=your_user
