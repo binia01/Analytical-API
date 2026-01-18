@@ -138,6 +138,46 @@ This task adds the following tables to the warehouse:
 - **Staging**: `stg_yolo_detections` (Cleaned detection data)
 - **Serving**: `fct_image_detections` (Fact table for image analytics)
 
+## Task 4: Exposing Data via REST API
+
+This module provides a **FastAPI** application to expose the analyzed data to external clients. It queries the processed data in the `medical_warehouse` (PostgreSQL) and serves it via JSON endpoints.
+
+### Features
+- **FastAPI Framework**: High-performance, easy-to-use Python web framework.
+- **Key Endpoints**:
+  - `GET /api/reports/top-products`: Returns most frequently mentioned medical keywords.
+  - `GET /api/channels/{channel_name}/activity`: Returns posting activity and view counts for a channel over time.
+  - `GET /api/search/messages`: Full-text search for messages containing specific keywords (e.g., "Paracetamol").
+- **Database Integration**: Connects directly to the `fct_messages` and Dimension tables for real-time analytics.
+- **Documentation**: Automatic interactive API docs generated at `/docs`.
+
+### Prerequisites
+1. **Dependencies**: `fastapi`, `uvicorn`, `pydantic` (included in `requirements.txt`).
+2. **Database**: PostgreSQL with simple text search enabled (default in Postgres).
+
+### Usage
+
+1. **Start the API Server**:
+   Run the application using Uvicorn:
+   ```bash
+   uvicorn api.main:app --reload
+   ```
+
+2. **Access Documentation**:
+   Open your browser and navigate to:
+   - **Swagger UI**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+   - **ReDoc**: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+
+3. **Sample Request**:
+   Get top products/keywords:
+   ```bash
+   curl -X 'GET' \
+     'http://127.0.0.1:8000/api/reports/top-products?limit=5' \
+     -H 'accept: application/json'
+   ```
+
+
+
 
 
 
