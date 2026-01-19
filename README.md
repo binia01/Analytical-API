@@ -202,7 +202,7 @@ The `medical_pipeline_job` defined in `pipeline.py` executes the following steps
 1.  **Launch Dagster UI**:
     Start the local development server:
     ```bash
-    dagster dev -f pipeline.py
+    dagster dev -f dagster_pipeline.py
     ```
 
 2.  **Trigger the Job**:
